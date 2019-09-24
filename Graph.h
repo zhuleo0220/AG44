@@ -1,6 +1,11 @@
+#include"Vertex.h"
+#include"Edge.h"
 class Graph{
-private:
-public:
+    Vertex* listVertex;
+    Edge* listEdge;
+    int ** cout;
+    
+
 
    
 };
