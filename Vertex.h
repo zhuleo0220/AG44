@@ -1,11 +1,18 @@
+#ifndef Ver
+#define Ver
 class Vertex{
-    private:
-        int id;
-        int* Neighbors;
-    public:
+   public:
+    int id;
+    int* Neighbors;
     Vertex();
     Vertex(int iden,int* nei);
-    ~Vertex();
-    
+    ~Vertex(){}
+    int sizof(){
+        return sizeof(Neighbors);
+    }
+
 
 };
+
+
+#endif
