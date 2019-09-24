@@ -1,12 +1,12 @@
-#include"Vertex.cpp"
+#include"Vertices.cpp"
 #include<iostream>
 int main(){
-    int n[4]={1,2,3,4};
+    int n[4]={1,2,3};
     int a=5;
-    //Vertex v(a,n);
+    Vertices v(a,n);
     //std::cout<<v.Neighbors[0];
     //std::cout<<v.sizof();
-    std::cout<<sizeof(n);
+    std::cout<<v;
 
 
 
