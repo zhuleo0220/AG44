@@ -17,7 +17,7 @@ class Vertices{
 
 
 };
-ostream &operator<<(ostream &os , const Vertices &v){
+ostream &operator<<(ostream &os , const Vertices &v){                                        //this is just a test function it's inline temporally
     os<<"id is"<<v.id<<endl<<"Neighbors";
     for(int i=0;i<=(sizeof(v.Neighbors)/(sizeof(v.Neighbors[0])));i++)
         os<<v.Neighbors[i];
