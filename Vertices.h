@@ -1,5 +1,5 @@
-#ifndef Ver
-#define Ver
+#ifndef AG44_VERTICES_H
+#define AG44_VERTICES_H
 #include<iostream>
 using namespace std;
 class Vertices{
@@ -19,7 +19,7 @@ class Vertices{
 };
 ostream &operator<<(ostream &os , const Vertices &v){
     os<<"id is"<<v.id<<endl<<"Neighbors";
-    for(int i=0;i<(sizeof(v.Neighbors)/(sizeof(v.Neighbors[0])));i++)
+    for(int i=0;i<=(sizeof(v.Neighbors)/(sizeof(v.Neighbors[0])));i++)
         os<<v.Neighbors[i];
     os<<sizeof(v.Neighbors);
     return os;

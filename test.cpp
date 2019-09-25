@@ -1,12 +1,12 @@
 #include"Vertices.cpp"
 #include<iostream>
 int main(){
-    int n[4]={1,2,3};
+    int n[]={1,2,3,4};
     int a=5;
     Vertices v(a,n);
-    //std::cout<<v.Neighbors[0];
-    //std::cout<<v.sizof();
-    std::cout<<v;
+    std::cout<<sizeof(v.Neighbors);
+    std::cout<<sizeof(n);
+    //std::cout<<v;
 
 
 
