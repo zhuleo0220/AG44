@@ -4,24 +4,41 @@
 using namespace std;
 class Vertices{
    //friend ostream &operator<<(ostream os , Vertices v);
-   public:
-    int id;
+    private:
+    int id,num_of_nei;
     int* Neighbors;
+     public:
     Vertices():Neighbors(nullptr){}
     //Vertices(int iden,int* nei);
-    Vertices(int iden,int* nei):id(iden),Neighbors(nei){}
+    Vertices(int iden,int* nei,int numnei):id(iden),Neighbors(nei),num_of_nei(numnei){}
     ~Vertices(){}
     int sizof(){
         return sizeof(Neighbors);
+    }
+    int* neighbours()const{return this->Neighbors;}
+    int iden()const{return id;}
+    int number()const{ return num_of_nei;}
+    Vertices &operator=(Vertices const & v){
+        this->id=v.id;
+        this->num_of_nei=v.num_of_nei;
+        if(Neighbors) delete [] Neighbors;
+        this->Neighbors=new int[this->num_of_nei] ;
+        for(int i=0;i<v.number();i++){
+            this->Neighbors[i]=v.Neighbors[i];
+        }
     }
 
 
 };
 ostream &operator<<(ostream &os , const Vertices &v){                                        //this is just a test function it's inline temporally
-    os<<"id is"<<v.id<<endl<<"Neighbors";
-    for(int i=0;i<=(sizeof(v.Neighbors)/(sizeof(v.Neighbors[0])));i++)
-        os<<v.Neighbors[i];
-    os<<sizeof(v.Neighbors);
+    os<<"id is "<<v.iden()<<endl;
+    if (v.number()!=0){
+        os<<"Neighbors are: ";
+        for(int i=0;i<v.number();i++)
+            os<<v.neighbours()[i]<<" ";
+        os<<endl;}
+    else
+        os<<"there is no neighbour";
     return os;
 
 
