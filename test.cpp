@@ -12,9 +12,9 @@ int main(){
     Vertices t(e,m,1);
     Vertices ver[]={x,y,z,w,t};
     //cout<<x;
-    Edges e1(&x,&y,1),e2(&x,&z,1);
-    Edges edg[]={e1,e2};
-    Graph G(ver,edg,5,2);
+   // Edges e1(&x,&y,1),e2(&y,&z,1),e3(&x,&w,1),e4(&z,&w,1),e5(&y,&z,1);
+    //Edges edg[]={e1,e2,e3,e4,e5};
+    Graph G(ver,5);
     G.print_matrix();
     G.print_ver();
     

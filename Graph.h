@@ -14,17 +14,13 @@ class Graph{
 public:
     Graph(){}
     ~Graph(){    }
-    Graph(Vertices* listv,Edges* liste,int v,int e){
+    Graph(Vertices* listv,int v){
         numberofv=v;
-        numberofe=e;
         listVertex=new Vertices[20];
         for(int i=0;i<v;i++){
             listVertex[i]=listv[i];
         }
-        listEdge=new Edges[20];
-        for(int i=0;i<e;i++){
-            listEdge[i]=liste[i];
-        }
+       create_edges_from_vertices();
     
         for(int i=0;i<v;i++){
             Matrix[i]=new int[v];
@@ -35,6 +31,22 @@ public:
             }
         }
     
+
+
+    }
+    void create_edges_from_vertices(){
+        if (listEdge) delete [] listEdge;
+        listEdge=new Edges[20];
+        for(int i=0;i<numberofv;i++){
+            if(listVertex[i].number()!=0){
+                for(int j=0;j<listVertex[i].number();j++){
+                    Vertices v1=listVertex[i];
+                    add_edges();
+                    Matrix[i][listVertex[i].neighbours()[j]-1]=1;
+                }
+            }
+        }
+
 
 
     }
