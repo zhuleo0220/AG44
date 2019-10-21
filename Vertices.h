@@ -21,11 +21,13 @@ class Vertices{
     Vertices &operator=(Vertices const & v){
         this->id=v.id;
         this->num_of_nei=v.num_of_nei;
-        if(Neighbors) delete [] Neighbors;
+        //if(Neighbors) delete [] Neighbors;
         this->Neighbors=new int[this->num_of_nei] ;
         for(int i=0;i<v.number();i++){
             this->Neighbors[i]=v.Neighbors[i];
         }
+        return *this;
+  
     }
 
 
