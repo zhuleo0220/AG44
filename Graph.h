@@ -112,9 +112,7 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
         for(int i=0;i<numberofv;i++){
             if(listVertex[i].number()!=0){
                 for(int j=0;j<listVertex[i].number();j++){
-                
                     Vertices v1=listVertex[i],v2;search_Vertices(listVertex[i].neighbours()[j],v2);
-                    
                     add_edges(&v1,&v2,1);//this way to change the cost
                     
                 }
