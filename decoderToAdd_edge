@@ -1,0 +1,24 @@
+//This function requires "tableOfVertices" which should be an empty
+//table of size 'sqrt(sizeof(standardGraph)/sizeof(int))'
+//But this operation will cause an error so we have to create an
+//int x = sizeof(standardGraph)/sizeof(int)
+//and then pose sqrt(x)
+void decoderFileTable(int standardGraph[], int tableOfVertices[])
+{
+    int tailleS = sizeof(standardGraph)+1;//computation of standardGraph's size
+    int tailleV = sqrt(tailleS);//size of tableOfVertices, also number of Vertices in standardGraph
+    for(int i=1;i<=tailleV;++i)//creates the table of vertices and name them
+    {
+        tableOfVertices[i-1]=i;//the first vertice is named '1', not '0'
+    }
+    for(int j=0;j<tailleS;++j)
+    {
+        if(standardGraph[j]!=0)
+        {
+            /*src = j/tailleV + 1;//name/number of the source Vertice
+            dest = j%tailleV + 1;//name/number of the destination Vertice
+            cost = standardGraph[j];//cost of the edge between the two Vertices*/
+            add_edges_int(j/tailleV + 1, j%tailleV + 1, standardGraph[j])
+        }
+    }
+}
