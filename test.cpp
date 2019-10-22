@@ -3,22 +3,25 @@
 #include"Graph.h"
 #include<iostream>
 int main(){
-   int i[]={2,4},j[]={1,3},k[]={2,4},l[]={1,3,5},m[]={4};
+   int i[]={2,4},j[]={1,3},k[]={2,4},l[]={1,3},m[]={};
     int a=1,b=2,c=3,d=4,e=5;
     Vertices x(a,i,2);
     Vertices y(b,j,2);
     Vertices z(c,k,2);
-    Vertices w(d,l,3);
-    Vertices t(e,m,1);
+    Vertices w(d,l,2);
+    Vertices t(e,m,0);
     Vertices ver[]={x,y,z,w,t};
-    Edges e1(&x,&y,1),e2(&x,&z,1);
-    Edges edg[]={e1,e2};
     Graph G(ver,5);
-  
-   // G.print_ver();
+    //cout<<x;
+    //G.print_ver();
     G.create_Edges_fr_vertices();
-    G.print_edge();
-   
+   // G.print_edge();
+   //G.add_edges(&x,&y,1);
+  G.add_edges_int(2,5,8);
+   cout<<G.get_edges()[8];
+   G.create_Matrix_fr_edges();
+   G.print_matrix();
+    
 
 
 

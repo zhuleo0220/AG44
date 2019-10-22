@@ -29,6 +29,13 @@ class Vertices{
         return *this;
   
     }
+    void add_nei(int id){
+        if(!Neighbors) 
+        int * Neighbors=new int [20];
+        num_of_nei=0;
+        Neighbors[number()]=id;
+        num_of_nei++;
+    }
 
 
 };

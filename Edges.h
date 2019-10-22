@@ -18,6 +18,7 @@ class Edges
     Edges(Vertices* srcs,Vertices *dests,int cos):src(srcs),dest(dests),cost(cos){}
     Vertices &get_src(){return *src;}
     Vertices &get_dest(){return *dest;}
+    int get_cost(){return cost;}
     Edges &operator=(Edges & e){
         cost=e.cost;
         src=new Vertices;
@@ -38,6 +39,7 @@ class Edges
 ostream &operator<<(ostream &os , Edges &e){                                        //this is just a test function it's inline temporally
     os<<"src is "<<e.get_src().iden()<<endl;
     os<<"dest is "<<e.get_dest().iden()<<endl;
+    os<<"cost is "<<e.get_cost()<<endl;
     return os;
 
 
