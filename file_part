@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <math.h>
+#include <cmath>
 
 using namespace std;
 
@@ -17,6 +19,19 @@ void return_line(ifstream &flux, int line)
     for(int i=0;i<line;++i)
     {
         getline(flux,stock);
+    }
+}
+
+void next_char(ifstream &flux, int nbr)
+{
+    char lettre;
+    for(int i=0;i<nbr;++i)
+    {
+        flux.get(lettre);
+        while(lettre!=';')
+        {
+            flux.get(lettre);
+        }
     }
 }
 
@@ -47,6 +62,29 @@ char read_reptype(ifstream &flux)
     return_line(flux,2);
     flux.get(lettre);
     return lettre;
+}
+
+int read_num(ifstream &flux)
+{
+    int nombre;
+    flux >> nombre;
+    if(check_cost(nombre))//c'te pute a besoin d'avoir la fonction au-dessus d'elle ... bonne chance --'
+    {
+        return nombre;
+    }
+    else
+    {
+        cout << endl << endl << "error : the file must have numbers at certain positions";
+        return 0;//la faut stopper le programme
+    }
+}
+
+//this function returns the numberth element of the matrix
+int readMatrix_Num(ifstream& flux, int number)
+{
+    return_line(flux,(number/3) + 3);
+    next_char(flux,number%3);
+    return read_num(flux);
 }
 
 //checking function part
@@ -103,6 +141,17 @@ int check_reptype(char letter)
     }
 }
 
+bool check_cost(int cost)
+{
+    if(cost<0){return false;}
+    else{return true;}
+}
+
+//global functions part
+
+//This function, used with others checks
+//checks if there is any mistake on the 3
+//first lines of a file
 bool firstCheck(bool vertice, int type, int reptype)
 {
     if(!vertice)
@@ -123,17 +172,69 @@ bool firstCheck(bool vertice, int type, int reptype)
     return true;
 }
 
+//This function fills a table in a matrix case
+//With the graph composition given by flux
+void read_matrix(ifstream &flux, int standardGraph[])
+{
+    int i, taille;//
+    taille=read_vertice(flux);//calcul de la taille du table
+    taille=taille*taille;//
+    for(i=0;i<taille;++i)
+    {
+        standardGraph[i]=readMatrix_Num(flux,i);
+        cout << standardGraph[i] << " ";
+    }
+}
+
+/*//this function fills a table in a list case
+//with the graph composition given by flux
+void read_list(ifstream &flux, int standardGraph[])
+{
+    int taille;//
+    taille=read_vertice(flux);//calcul de la taille de table
+    taille=taille*taille;//
+}*/
+
+
+/*//graph interactive functions part
+
+//This function requires "tableOfVertices" which should be an empty
+//table of size 'sqrt(sizeof(standardGraph)/sizeof(int))'
+//But this operation will cause an error so we have to create an
+//int x = sizeof(standardGraph)/sizeof(int)
+//and then pose sqrt(x)
+void decoderFileTable(int standardGraph[], int tableOfVertices[])
+{
+    int tailleS = sizeof(standardGraph)+1;//calcul de la taille de standardGraph _ fonctionnement etrange
+    int tailleV = sqrt(tailleS);//size of tableOfVertices, also number of Vertices in standardGraph
+    for(int i=1;i<=tailleV;++i)//creates the table of vertices and name them
+    {
+        tableOfVertices[i-1]=i;//the first vertice is named '1', not '0'
+    }
+    for(int j=0;j<tailleS;++j)
+    {
+        if(standardGraph[j]!=0)
+        {
+            //src = j/tailleV + 1;//name/number of the source Vertice
+            //dest = j%tailleV + 1;//name/number of the destination Vertice
+            //cost = standardGraph[j];//cost of the edge between the two Vertices
+            add_edges_int(j/tailleV + 1, j%tailleV + 1, standardGraph[j])
+        }
+    }
+}*/
+
 int main()
 {
     ifstream flux("test.txt");
     if(flux)
     {
-        cout << endl <<"ok";
+        cout << endl << "ok" << endl;
     }
     else
     {
         cout << "error : opening of file test.txt";
     }
+
 
     /*lecture fichier complet
     string line;
@@ -143,19 +244,16 @@ int main()
         cout << endl << line;
     }*/
 
-    if(firstCheck(check_vertice(read_vertice(flux)),check_type(read_type(flux)),check_reptype(read_reptype(flux))))
+    /*if(firstCheck(check_vertice(read_vertice(flux)),check_type(read_type(flux)),check_reptype(read_reptype(flux))))
     {
         cout << endl << "everything : ok";
-    }
+    }*/
+
+    int standardGraph[read_vertice(flux)*read_vertice(flux)];//à optimiser en calculant le ² avant de l'envoyer dans la fonction pour n'utiliser qu'une fois la fonction
+    read_matrix(flux, standardGraph);
+
+
+    cout << endl << "fini";
 
     return 0;
 }
-
-//A ce stade, le package est capable de lire et vérifier le nombre de vertices, le type des edges, et si on lui donne une matrice ou une liste
-
-//L'idée dans la continuité serait de travailler sur une fonction (2 fonctions : matrice / liste) qui lirait la composition du graph
-//et la synthétiserait sous forme "canonique"
-
-//Et le travail de vérification continuerait à partir de cette forme canonique, plus simple à traîter
-
-//pour faire tout ça, logiquement : vectors
