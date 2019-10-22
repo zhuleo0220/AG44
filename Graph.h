@@ -13,24 +13,37 @@ class Graph{
     int * Listadja;
     int numberofv,numberofe;
 public:
-    Graph(){}
+    Graph(){
+        numberofv=0;
+        numberofe=0;
+        listEdge=new Edges[40];
+    }
     ~Graph(){
        if(listEdge) delete [] listEdge;
        if(listVertex) delete [] listVertex;
-     //  if(Matrix){
-     //  for(int i=0;i<numberofv;i++){
-     //      delete [] Matrix[i];
-     //  }
-     //  delete Matrix;
-      // }
+       if(Matrix){
+       for(int i=0;i<numberofv;i++){
+           delete [] Matrix[i];
+       }
+       delete Matrix;
+       }
         
     }
     //this is a constructor when only have the list of vectiecs
     //it will automatically create the liste of edges 
+Graph(int v,int e){
+    numberofv=v;
+    numberofe=e;
+    listVertex=new Vertices[20];
+    for(int i=0;i<v;i++){
+        Vertices temp(i+1,{},0);
+        listVertex[i]=temp;
+
+    }
+}
 Graph(Vertices* listv,int v){
     numberofv=v;
     numberofe=0;
-    cout<<5;
     listVertex=new Vertices[20];
         for(int i=0;i<v;i++){
             listVertex[i]=listv[i];
@@ -91,6 +104,7 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
         
        
             listVertex[srcs].add_nei(dests);
+            cout<<10;
             Vertices v1,v2;
             search_Vertices(srcs,v1);
             search_Vertices(dests,v2);
@@ -103,8 +117,9 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
     //if want to create from different cost must add a list of cost in each vertices class
     
     void create_Edges_fr_vertices(){
+      
         cout<<"create the Edges from vertices"<<endl;
-      //  if (listEdge) delete [] listEdge;
+       //if (listEdge) delete [] listEdge;
         listEdge=new Edges[40];
         for(int i=0;i<numberofv;i++){
             if(listVertex[i].number()!=0){
@@ -136,10 +151,11 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
         for(int i=0;i<number_of_vertex();i++){
             Matrix[i]=new int[number_of_vertex()];
         }
+        
         for(int i=0;i<number_of_edges();i++)
             {
                 Matrix[listEdge[i].get_src().iden()-1][listEdge[i].get_dest().iden()-1]=listEdge[i].get_cost();
-                //cout<<listEdge[i].get_cost();
+             cout<<listEdge[i].get_cost();
 
             }
     }

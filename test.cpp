@@ -18,7 +18,7 @@ int main(){
    // G.print_edge();
    //G.add_edges(&x,&y,1);
   G.add_edges_int(2,5,8);
-   cout<<G.get_edges()[8];
+   cout<<G.get_edges()[6];
    G.create_Matrix_fr_edges();
    G.print_matrix();
     
