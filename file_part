@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string>
 #include <fstream>
 #include <math.h>
@@ -64,18 +66,31 @@ char read_reptype(ifstream &flux)
     return lettre;
 }
 
+int check_cost(string cost)
+{
+    int strSize = cost.length();
+    for(int i=0;i<strSize;++i)
+    {
+        if(!isdigit(cost[i])){return -1;}
+    }
+    int icost=atoi("15");                               /// this should be the conversion of cost instead of 15 ...
+    if(icost<0){return -1;}
+    else{return icost;}
+}
+
 int read_num(ifstream &flux)
 {
-    int nombre;
-    flux >> nombre;
-    if(check_cost(nombre))//c'te pute a besoin d'avoir la fonction au-dessus d'elle ... bonne chance --'
+    string stock;
+    flux >> stock;
+    int nombre = check_cost(stock);
+    if(nombre!=-1)
     {
         return nombre;
     }
     else
     {
         cout << endl << endl << "error : the file must have numbers at certain positions";
-        return 0;//la faut stopper le programme
+        return 404;//la faut stopper le programme
     }
 }
 
@@ -141,11 +156,6 @@ int check_reptype(char letter)
     }
 }
 
-bool check_cost(int cost)
-{
-    if(cost<0){return false;}
-    else{return true;}
-}
 
 //global functions part
 
