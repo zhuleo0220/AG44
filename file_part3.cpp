@@ -192,7 +192,7 @@ void read_list(ifstream &flux, int standardGraph[])
 //But this operation will cause an error so we have to create an
 //int x = sizeof(standardGraph)/sizeof(int)
 //and then pose sqrt(x)
-void decoderFileTable(int standardGraph[], int tableOfVertices[],Graph G)
+void decoderFileTable(int standardGraph[], int tableOfVertices[],Graph* G)
 {
     int tailleS = sizeof(standardGraph)+1;//calcul de la taille de standardGraph _ fonctionnement etrange
     int tailleV = sqrt(tailleS);//size of tableOfVertices, also number of Vertices in standardGraph
@@ -208,9 +208,11 @@ void decoderFileTable(int standardGraph[], int tableOfVertices[],Graph G)
             //dest = j%tailleV + 1;//name/number of the destination Vertice
             //cost = standardGraph[j];//cost of the edge between the two Vertices
             cout<<j/tailleV + 1<<endl<<j%tailleV + 1<<endl<<standardGraph[j]<<endl;
-            G.add_edges_int((j/tailleV + 1), (j%tailleV + 1), standardGraph[j]);
+            (*G).add_edges_int((j/tailleV + 1), (j%tailleV + 1), standardGraph[j]);
+            cout<<"done"<<endl;
         }
     }
+    
 }
 
 int main()
@@ -241,21 +243,23 @@ int main()
 
     int standardGraph[read_vertice(flux)*read_vertice(flux)];//à optimiser en calculant le ² avant de l'envoyer dans la fonction pour n'utiliser qu'une fois la fonction
     read_matrix(flux, standardGraph);
-    Vertices x(1,{},0);
-    Vertices y(2,{},0);
-    Vertices z(3,{},0);
+    int  a[]={};
+    Vertices x(1,a,0);
+    Vertices y(2,a,0);
+    Vertices z(3,a,0);
     Vertices ver[]={x,y,z};
     Graph G(ver,3);
     //G.create_Edges_fr_vertices();
     //Graph G(3,0);
     int  tableOfVertices[3]={1,2,3};
-    decoderFileTable(standardGraph,tableOfVertices,G);
-    //G.add_edges_int(1,2,9);
-    G.add_edges_int(2,3,9);
-    cout<<G.get_edges()[0];
-    G.print_edge();
-    //G.create_Matrix_fr_edges();
-    //G.print_matrix();n
+    decoderFileTable(standardGraph,tableOfVertices,&G);
+    //cout<<G.number_of_vertex();
+    //G.add_edges_inßt(1,2,9);
+    //G.add_edges_int(2,3,9);
+    //cout<<G.get_edges()[0];
+    //G.print_edge();
+    G.create_Matrix_fr_edges();
+    G.print_matrix();
 
 
     cout << endl << "fini";

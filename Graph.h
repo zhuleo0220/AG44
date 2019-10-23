@@ -36,7 +36,8 @@ Graph(int v,int e){
     numberofe=e;
     listVertex=new Vertices[20];
     for(int i=0;i<v;i++){
-        Vertices temp(i+1,{},0);
+        int  a[]={};
+        Vertices temp(i+1,a,0);
         listVertex[i]=temp;
 
     }
@@ -48,6 +49,7 @@ Graph(Vertices* listv,int v){
         for(int i=0;i<v;i++){
             listVertex[i]=listv[i];
         }
+        listEdge=new Edges[40];
 }
 
 Graph(Vertices* listv,Edges* liste,int v,int e){
@@ -102,9 +104,8 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
     }
     void add_edges_int(int srcs,int dests,int cos){
         
-       
-            listVertex[srcs].add_nei(dests);
-            cout<<10;
+            
+            listVertex[srcs-1].add_nei(dests);
             Vertices v1,v2;
             search_Vertices(srcs,v1);
             search_Vertices(dests,v2);
@@ -148,8 +149,9 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
     // create the matrix from the edges lists
     void create_Matrix_fr_edges(){
         cout<<"create the matrix from edges"<<endl;
-        for(int i=0;i<number_of_vertex();i++){
-            Matrix[i]=new int[number_of_vertex()];
+        Matrix=new int* [number_of_vertex()];
+       for(int i=0;i<number_of_vertex();i++){
+           Matrix[i]=new int[number_of_vertex()];
         }
         
         for(int i=0;i<number_of_edges();i++)
@@ -178,6 +180,7 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
         cout<<"create the liste from edges"<<endl;
     }
     void print_matrix(){
+        cout<<endl;
         for(int i=0;i<number_of_vertex();i++){
             for(int j=0;j<number_of_vertex();j++){
                 cout<<Matrix[i][j]<<" ";
