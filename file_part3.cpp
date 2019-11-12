@@ -207,9 +207,8 @@ void decoderFileTable(int standardGraph[], int tableOfVertices[],Graph* G)
             //src = j/tailleV + 1;//name/number of the source Vertice
             //dest = j%tailleV + 1;//name/number of the destination Vertice
             //cost = standardGraph[j];//cost of the edge between the two Vertices
-            cout<<j/tailleV + 1<<endl<<j%tailleV + 1<<endl<<standardGraph[j]<<endl;
+            //cout<<j/tailleV + 1<<endl<<j%tailleV + 1<<endl<<standardGraph[j]<<endl;
             (*G).add_edges_int((j/tailleV + 1), (j%tailleV + 1), standardGraph[j]);
-            cout<<"done"<<endl;
         }
     }
     
@@ -249,17 +248,11 @@ int main()
     Vertices z(3,a,0);
     Vertices ver[]={x,y,z};
     Graph G(ver,3);
-    //G.create_Edges_fr_vertices();
-    //Graph G(3,0);
     int  tableOfVertices[3]={1,2,3};
     decoderFileTable(standardGraph,tableOfVertices,&G);
-    //cout<<G.number_of_vertex();
-    //G.add_edges_inßt(1,2,9);
-    //G.add_edges_int(2,3,9);
-    //cout<<G.get_edges()[0];
-    //G.print_edge();
-    G.create_Matrix_fr_edges();
-    G.print_matrix();
+    cout<<endl;
+    G.create_List_fr_edges();
+    G.print_list();
 
 
     cout << endl << "fini";

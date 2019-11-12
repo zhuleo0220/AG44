@@ -5,14 +5,18 @@
 #include"Vertices.h"
 #include"Edges.h"
 #include<iostream>
+#include<vector>
+using namespace std;
 class Graph{
   private:
     Vertices* listVertex;
     Edges* listEdge;
     int ** Matrix;
-    int * Listadja;
+    vector<vector<pair<int,int>>> listadj;
     int numberofv,numberofe;
 public:
+
+    
     Graph(){
         numberofv=0;
         numberofe=0;
@@ -27,6 +31,7 @@ public:
        }
        delete Matrix;
        }
+       listadj.clear();
         
     }
     //this is a constructor when only have the list of vectiecs
@@ -42,7 +47,7 @@ Graph(int v,int e){
 
     }
 }
-Graph(Vertices* listv,int v){
+Graph(Vertices* listv,int v):listadj(v){
     numberofv=v;
     numberofe=0;
     listVertex=new Vertices[20];
@@ -157,24 +162,20 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
         for(int i=0;i<number_of_edges();i++)
             {
                 Matrix[listEdge[i].get_src().iden()-1][listEdge[i].get_dest().iden()-1]=listEdge[i].get_cost();
-             cout<<listEdge[i].get_cost();
+             //cout<<listEdge[i].get_cost();
 
             }
     }
     // create the matrix from the Vertices lists
-    void create_Matrix_fr_vertices(){
-       cout<<"create the matrix from Vertices"<<endl;
-       // if (Matrix) delete [] Matrix;
-       cout<<numberofv;
-        for(int i=0;i<numberofv;i++){
-            Matrix[i]=new int[numberofv];
-            if(listVertex[i].number()!=0){
-                for(int j=0;j<listVertex[i].number();j++){
-                    cout<<listVertex[i].iden();
-                    Matrix[i][listVertex[i].neighbours()[j]-1]=1;
-                }
+    void create_List_fr_edges(){
+        cout<<"create the adjlist from edges"<<endl;
+        //vector<vector<pair<int,int>>> listadj(3);
+        for(int i=0;i<number_of_edges();i++)
+            {
+               listadj[listEdge[i].get_src().iden()-1].push_back(make_pair(listEdge[i].get_dest().iden(),listEdge[i].get_cost()));
+             // listadj[0].push_back(make_pair(2,15));
+             cout<<listEdge[i].get_src().iden()<<" "<<listEdge[i].get_dest().iden()<<" "<<listEdge[i].get_cost()<<endl;
             }
-        }
     }
     void create_Liste(){
         cout<<"create the liste from edges"<<endl;
@@ -188,6 +189,16 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
             std::cout<<std::endl;
         }
 
+    }
+    void print_list(){
+        for(int i=0;i<3;i++){
+      cout<<i+1;
+      for(vector<pair<int,int>>::iterator iter=listadj[i].begin();iter!=listadj[i].end();iter++)
+    {
+        cout<<"->"<<iter->first<<"(cost:"<<iter->second<<")";
+    }
+    cout<<endl;
+  }
     }
     void print_ver(){
         for(int i=0;i<number_of_vertex();i++){
