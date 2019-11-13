@@ -6,6 +6,7 @@ class Vertices{
    //friend ostream &operator<<(ostream os , Vertices v);
     private:
     int id,num_of_nei;
+    int id_of_pere;
     int* Neighbors;
      public:
     Vertices():Neighbors(nullptr){}
