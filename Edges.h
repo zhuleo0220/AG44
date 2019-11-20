@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include "Vertices.h"
-
 using namespace std;
 
 class Edges
@@ -34,6 +33,7 @@ class Edges
     Vertices *src;
     Vertices *dest;
     int cost;
+    friend bool Dijkstra(int sr, int des);
     
 };
 ostream &operator<<(ostream &os , Edges &e){                                        //this is just a test function it's inline temporally

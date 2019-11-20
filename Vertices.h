@@ -1,6 +1,10 @@
 #ifndef AG44_VERTICES_H
 #define AG44_VERTICES_H
+
+
 #include<iostream>
+
+
 using namespace std;
 class Vertices{
    //friend ostream &operator<<(ostream os , Vertices v);
@@ -9,6 +13,7 @@ class Vertices{
     int id_of_pere;
     int* Neighbors;
      public:
+     friend bool Dijkstra(int src, int dest);
     Vertices():Neighbors(nullptr){}
     //Vertices(int iden,int* nei);
     Vertices(int iden,int* nei,int numnei):id(iden),Neighbors(nei),num_of_nei(numnei){}

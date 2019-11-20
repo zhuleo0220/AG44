@@ -1,54 +1,50 @@
-#include "Graph.h"
-#include <set>
-
-
-extern Graph G;
-friend class Graph;
-
-
-bool Dijkstra(int src, int dest){
-    int PathDistance=0;
-    if ((G->get_Vertices()[src]->number()==0)  ||  (src==dest)) {
-        return false;
-    }
-    G->get_Vertices()[src]->id_of_pere=-1;
-    int Max = 100000;   
-    set< pair<double, int> > setdest;
-    set< pair<double, int> >::iterator tmp;
-    vector<double> cost(G->number_of_vertex(), Max);
-    cost[src] = 0;
-    setdest.insert(make_pair(cost[src], src));
-    while (!setdest.empty() ){
-        tmp = setdest.begin();
-        int u = (*tmp).second;
-        setdest.erase(setdest.begin());
-        if (u == dest) break;
-        if (G->get_Vertices()[u]number()==0) continue;
-        for (int i=0;i< G->get_Vertices()[u]->NbVoisins;i++){
-            int v = G->get_Vertices()[u]->LstVoisins[i].first;// this one is vertex id v
-            int idEdge = G->get_Vertices()[u]->LstVoisins[i].second;//this one is edge id u - v
-            double weight= G->LstEdges[idEdge]->dist;
-            if (cost[v] > cost[u] + weight ){
-                if (cost[v] != Max){
-                    setdest.erase(setdest.find(make_pair(cost[v], v)));
-                }
-                cost[v] = cost[u] + weight;
-                setdest.insert(make_pair(cost[v], v));
-                G->get_Vertices()[v]->Pere = u;
-                G->get_Vertices()[v]->PreviousEdgeId = G->listVertex[u]->LstVoisins[i].second;
+ list<int> dijkstraShortestPath(int src, int dst,) {
+        assert(src != dst);
+        // vector<int> prev = dijkstra(src);
+        vector<int> prev = dijkstra_priority_queue(src);        
+        list<int> path;
+        int u = dst;
+        if (prev[u] != -1) {
+            while (prev[u] != -1) {
+                path.push_front(u);
+                u = prev[u];    
             }
         }
+
+        return path;
     }
-    int curr = dest;
-    cout<< curr->id<< "; ";
-    while (curr != src){
-        int idEdge=G->LstNoeuds[curr]->PreviousEdgeId;
-        Edge* edge = G->LstEdges[idEdge];
-        PathDistance += edge->dist;   
-        curr = G->LstNoeuds[curr]->Pred;     
-        Cout<< curr->id<< "; ";
+
+    // dijkstra经典实现，算法复杂度O(|V|^2)
+    vector<int> dijkstra(int source) {
+        vector<int> prev;
+        vector<int> dist;
+        list<int> vlist;
+
+        for (int i = 0; i < this->numVertices; ++i) {
+            dist.push_back(INT_MAX);
+            prev.push_back(-1);
+            vlist.push_back(i);
+        }
+        dist[source] = 0;
+ 
+        while (!vlist.empty()) {
+            int u =  minVertexDistance(&vlist, &dist);
+            vlist.remove(u);
+            vector<int> neighbors = neighbor_vertices(u);
+            for (auto it = neighbors.begin(); it != neighbors.end(); ++it) {
+                int alt = dist[u] + distance(u, *it);
+                if (alt < dist[*it]) {
+                    dist[*it] = alt;
+                    prev[*it] = u;
+                }
+            }
+        }
+
+        // 打印距离值
+        for (int i = 0; i < numVertices; ++i) {
+            cout << i << " : " << dist[i] << endl;
+        }
+
+         return prev;
     }
-cout << endl;
-cout<< << "Disatance = " << PathDistance<<endl ;
-    return true;
-}
+

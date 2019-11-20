@@ -165,9 +165,11 @@ bool firstCheck(bool vertice, int type, int reptype)
 //With the graph composition given by flux
 void read_matrix(ifstream &flux, int standardGraph[])
 {
+    
     int i, taille;//
     taille=read_vertice(flux);//calcul de la taille du table
     taille=taille*taille;//
+    
     for(i=0;i<taille;++i)
     {
         standardGraph[i]=readMatrix_Num(flux,i);
@@ -214,6 +216,52 @@ void decoderFileTable(int standardGraph[], int tableOfVertices[],Graph* G)
     
 }
 
+
+
+
+
+
+
+void dijkstra(vector<vector<int> > matrix,int start,int nodenum,int* dist,int* path)
+{
+	vector<int> tpath;
+	int* flag=new int(nodenum);
+	for(int i=0;i<=nodenum-1;i++)
+	{
+		flag[i]=0;
+		dist[i]=9999;
+		path[i]=-1;
+	}
+	flag[start]=1;
+	path[start]=start;
+	dist[start]=0;
+	tpath.push_back(start);
+	//initial
+ 
+	while(tpath.size()!=0)
+	{
+		int tnode=tpath[0];
+		tpath.erase(tpath.begin());
+		for(int i=0;i<=nodenum-1;i++)
+		{
+			if(matrix[tnode][i]!=-1)
+			{
+				if(dist[tnode]+matrix[tnode][i]<dist[i])
+				{
+					dist[i]=dist[tnode]+matrix[tnode][i];
+					path[i]=tnode;
+					if(flag[i]==0)
+					{
+						tpath.push_back(i);
+						flag[i]=1;
+					}
+				}
+ 
+			}
+		}
+	}
+}
+
 int main()
 {
     ifstream flux("test.txt");
@@ -246,13 +294,17 @@ int main()
     Vertices x(1,a,0);
     Vertices y(2,a,0);
     Vertices z(3,a,0);
+    //Vertices z1(4,a,0);
+    //Vertices z2(5,a,0);
     Vertices ver[]={x,y,z};
     Graph G(ver,3);
-    int  tableOfVertices[3]={1,2,3};
-    decoderFileTable(standardGraph,tableOfVertices,&G);
+    int  tableOfVertices[5]={1,2,3};
+    //decoderFileTable(standardGraph,tableOfVertices,&G);
     cout<<endl;
-    G.create_List_fr_edges();
-    G.print_list();
+    //G.create_List_fr_edges();
+    //G.print_list();
+   // G.create_Matrix_fr_edges();
+    //G.print_matrix();
 
 
     cout << endl << "fini";

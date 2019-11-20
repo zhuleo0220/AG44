@@ -15,6 +15,7 @@ class Graph{
     vector<vector<pair<int,int>>> listadj;
     int numberofv,numberofe;
 public:
+    friend bool Dijkstra(int src, int dest);
 
     
     Graph(){
@@ -191,7 +192,7 @@ Graph(Vertices* listv,Edges* liste,int v,int e){
 
     }
     void print_list(){
-        for(int i=0;i<3;i++){
+        for(int i=0;i<number_of_vertex();i++){
       cout<<i+1;
       for(vector<pair<int,int>>::iterator iter=listadj[i].begin();iter!=listadj[i].end();iter++)
     {
