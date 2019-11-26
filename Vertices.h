@@ -10,10 +10,10 @@ class Vertices{
    //friend ostream &operator<<(ostream os , Vertices v);
     private:
     int id,num_of_nei;
-    int id_of_pere;
     int* Neighbors;
+    bool visite;
      public:
-     friend bool Dijkstra(int src, int dest);
+    
     Vertices():Neighbors(nullptr){}
     //Vertices(int iden,int* nei);
     Vertices(int iden,int* nei,int numnei):id(iden),Neighbors(nei),num_of_nei(numnei){}
@@ -24,8 +24,12 @@ class Vertices{
     int* neighbours()const{return this->Neighbors;}
     int iden()const{return id;}
     int number()const{ return num_of_nei;}
+    bool get_visite(){return visite;}
+    void setvisite(){visite=1;}
+    void setunvisite(){visite=0;}
     Vertices &operator=(Vertices const & v){
         this->id=v.id;
+        this->visite=v.visite;
         this->num_of_nei=v.num_of_nei;
         //if(Neighbors) delete [] Neighbors;
         this->Neighbors=new int[this->num_of_nei] ;
@@ -36,9 +40,9 @@ class Vertices{
   
     }
     void add_nei(int id){
-        if(!Neighbors) 
+        if(!Neighbors) {
         int * Neighbors=new int [20];
-        num_of_nei=0;
+        num_of_nei=0;}
         Neighbors[number()]=id;
         num_of_nei++;
     }
