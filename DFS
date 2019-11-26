@@ -1,0 +1,21 @@
+void DFS(Graph &G)
+{
+    for (int i=1;i<=#listVertexSize#;++i)
+    {
+        G.listVertex[i].#visited#=false;
+    }
+    DFS_sort(&G, 1); //1 is the id of the starting vertex
+}
+
+void DFS_sort(Graph &G, int id)//Reminder : the vertex number x has 'id=x'
+{
+    G.listVertex[id].#updateVisit#; //mark the vertex as visited
+    cout << id << " ";
+    for(int i=0;i<#NeighborsSize#;++i)
+    {
+        if(!G.listVertex[id].Neighbors[i].#visited#)
+        {
+            DFS_sort(&G, i);
+        }
+    }
+}
