@@ -10,6 +10,7 @@
 #include"Vertices.h"
 #include"Edges.h"
 #include"Graph.h"
+#include"dijkstra.cpp"
 
 using namespace std;
 
@@ -394,14 +395,24 @@ int main()
     int *TableOfVertices=decoderFileTable(read_vertice(flux)*read_vertice(flux),standardGraph,&G);
     cout<<endl;
    
-    G.create_List_fr_edges();
-    //G.create_Matrix_fr_edges();
+    //G.create_List_fr_edges();
+    G.create_Matrix_fr_edges();
     
-    G.print_edge();
+    //G.print_edge();
     //G.print_list();
     
-   // G.print_matrix();
+    G.print_matrix();
     //G.print_ver();
+    int nodenum=read_vertice(flux);
+    int start=0;
+    int * dist=new int(nodenum);
+    int * path=new int(nodenum);
+    
+    Dijkstra(G.get_matrix(),start,nodenum,dist,path);
+    cout<<endl;
+    for(int i=0;i<nodenum;i++){
+        cout<<dist[i]<<" ";
+    }
 
 
     cout << endl << "fini";

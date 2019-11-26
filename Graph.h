@@ -58,7 +58,7 @@ Graph(int v):listadj(v){
     const int number_of_edges(){return numberofe;}
     Edges * get_edges(){return listEdge;}
     Vertices * get_Vertices(){return listVertex;}
-    int ** get_matrix(){return Matrix;}
+    int* * get_matrix(){return Matrix;}
     void change_num_vertex(int nu){numberofv=nu;}
     void setunvisited(){
         for(int i=0;i<=numberofv;i++)
@@ -66,7 +66,7 @@ Graph(int v):listadj(v){
     }//to set all Vertices unvisited
     bool visited(int id){return listVertex[id-1].get_visite();}//to know wether the vertice of id have been visited
     void visite_vertice(int id){listVertex[id-1].setvisite();}//to visite the vertice of id(true)
-    void defisited_vertice(int id){listVertex[id-1].setunvisite();}//to set the vertice of id unvisited(false)
+    void devisited_vertice(int id){listVertex[id-1].setunvisite();}//to set the vertice of id unvisited(false)
 
     
     void add_edges(Vertices* srcs,Vertices *dests,int cos){
@@ -128,9 +128,9 @@ Graph(int v):listadj(v){
         cout<<"create the adjlist from edges"<<endl;
         for(int i=0;i<number_of_edges();i++)
             {
-               //listadj[listEdge[i].get_src().iden()-1].push_back(make_pair(listEdge[i].get_dest().iden(),listEdge[i].get_cost()));
+               listadj[listEdge[i].get_src().iden()-1].push_back(make_pair(listEdge[i].get_dest().iden(),listEdge[i].get_cost()));
              
-             //cout<<listEdge[i].get_src().iden()<<" "<<listEdge[i].get_dest().iden()<<" "<<listEdge[i].get_cost()<<endl;
+             cout<<listEdge[i].get_src().iden()<<" "<<listEdge[i].get_dest().iden()<<" "<<listEdge[i].get_cost()<<endl;
             }
     }
     void create_Liste(){
