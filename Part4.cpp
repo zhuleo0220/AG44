@@ -11,6 +11,8 @@
 #include"Edges.h"
 #include"Graph.h"
 #include"dijkstra.cpp"
+#include"DFS.cpp"
+#include"BFS.cpp"
 
 using namespace std;
 
@@ -403,6 +405,11 @@ int main()
     
     G.print_matrix();
     //G.print_ver();
+    
+    
+    
+    //dijkstra
+    /*
     int nodenum=read_vertice(flux);
     int start=0;
     int * dist=new int(nodenum);
@@ -413,6 +420,24 @@ int main()
     for(int i=0;i<nodenum;i++){
         cout<<dist[i]<<" ";
     }
+    */
+
+   //DFS
+  // DFS(G);
+
+   //BFS
+   //BFS(G,1);
+   //cout<<G.related();
+   G.print_edge();
+
+
+
+
+   //cout<<G.get_Vertices()[0];
+   //G.setunvisited();
+   //G.print_visite();
+   //cout<<G.get_Vertices()[0];
+
 
 
     cout << endl << "fini";

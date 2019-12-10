@@ -6,6 +6,7 @@
 #include"Edges.h"
 #include<iostream>
 #include<vector>
+#include<list>
 using namespace std;
 class Graph{
   private:
@@ -67,8 +68,49 @@ Graph(int v):listadj(v){
     bool visited(int id){return listVertex[id-1].get_visite();}//to know wether the vertice of id have been visited
     void visite_vertice(int id){listVertex[id-1].setvisite();}//to visite the vertice of id(true)
     void devisited_vertice(int id){listVertex[id-1].setunvisite();}//to set the vertice of id unvisited(false)
-
+    int BFS(int id) //id is the starting vertex
+    {
+    int nu=0;
+    this->setunvisited();
+    list<int> q; //the queue we'll use
+    this->visite_vertice(id);
+    q.push_back(id);
+    while(!q.empty())
+    {
+        id=q.front();
+        nu++;
+        q.pop_front();
+        for(int i=0;i<this->get_Vertices()[id-1].number();++i)
+        {
+            if(!this->visited(this->get_Vertices()[id-1].neighbours()[i]))
+            {
+                this->visite_vertice(this->get_Vertices()[id-1].neighbours()[i]);
+                q.push_back(this->get_Vertices()[id-1].neighbours()[i]);
+            }
+        }
+    }
+    return nu;
+    }
+    bool related(){
+        
+    if( BFS(1)==numberofv)
+    return 1;
+    else return 0;
+    }
     
+    void sort_edges(){
+    int len = numberofe;
+    for (int i = 0; i < len - 1; i++) {
+        for (int j = 0; j < len - 1 - i; j++) {
+            if (listEdge[j] > listEdge[j+1]) {        
+                var temp = listEdge[j+1];        
+                listEdge[j+1] = listEdge[j];
+                listEdge[j] = temp;
+            }
+        }
+    }
+}
+    }
     void add_edges(Vertices* srcs,Vertices *dests,int cos){
         if(number_of_edges()==40){
             cout<<"the number of edges is already 20 please enlarge the space"<<endl;
