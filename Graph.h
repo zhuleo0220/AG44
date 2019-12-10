@@ -102,15 +102,15 @@ Graph(int v):listadj(v){
     int len = numberofe;
     for (int i = 0; i < len - 1; i++) {
         for (int j = 0; j < len - 1 - i; j++) {
-            if (listEdge[j] > listEdge[j+1]) {        
-                var temp = listEdge[j+1];        
+            if (listEdge[j].get_cost() > listEdge[j+1].get_cost()) {        
+                Edges temp = listEdge[j+1];        
                 listEdge[j+1] = listEdge[j];
                 listEdge[j] = temp;
             }
         }
     }
 }
-    }
+    
     void add_edges(Vertices* srcs,Vertices *dests,int cos){
         if(number_of_edges()==40){
             cout<<"the number of edges is already 20 please enlarge the space"<<endl;

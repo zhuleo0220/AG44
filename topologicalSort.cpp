@@ -1,20 +1,5 @@
-void topologicalSort(Graph& G)
-{
-    stack(int) Stack;
-    G.setunvisited();
-    for(int id=0;id<#numberOfVertices#;++id)
-    {
-        if(!G.visited(id))
-        {
-            topologicalSortUtil(id,G,Stack);
-        }
-    }
-    while (Stack.empty() == false) 
-    { 
-        cout << Stack.top() << " "; 
-        Stack.pop(); 
-    } 
-}
+#include"Graph.h"
+#include<stack>
 
 void topologicalSortUtil(int id, Graph& G, stack<int> &Stack)
 {
@@ -27,4 +12,22 @@ void topologicalSortUtil(int id, Graph& G, stack<int> &Stack)
         }
     }
     Stack.push(id);
+}
+
+void topologicalSort(Graph& G)
+{
+    stack<int> Stack;
+    G.setunvisited();
+    for(int id=1;id<=G.number_of_vertex();++id)
+    {
+        if(!G.visited(id))
+        {
+            topologicalSortUtil(id,G,Stack);
+        }
+    }
+    while (Stack.empty() == false) 
+    { 
+        cout << Stack.top() << " "; 
+        Stack.pop(); 
+    } 
 }

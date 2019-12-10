@@ -13,6 +13,9 @@
 #include"dijkstra.cpp"
 #include"DFS.cpp"
 #include"BFS.cpp"
+#include"topologicalSort.cpp"
+#include"kruskal.cpp"
+#include"prim.cpp"
 
 using namespace std;
 
@@ -427,16 +430,22 @@ int main()
 
    //BFS
    //BFS(G,1);
+
+
+   // topologicalSort
+   //topologicalSort(G);
    //cout<<G.related();
-   G.print_edge();
+
+
+  //kruskal(G);
+
+  //Prim
+  Prim(G.get_matrix(),G.number_of_vertex());
 
 
 
 
-   //cout<<G.get_Vertices()[0];
-   //G.setunvisited();
-   //G.print_visite();
-   //cout<<G.get_Vertices()[0];
+ 
 
 
 
