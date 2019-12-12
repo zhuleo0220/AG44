@@ -4,7 +4,7 @@
 
 void fillOrder(int id, Graph &G, stack<int> &Stack)
 {
-    Gvisite_vertice(id);
+    G.visite_vertice(id);
     for(int i=1;i<=G.get_Vertices()[id-1].number();++i)
     {
         if(!G.visited(G.get_Vertices()[id-1].neighbours()[i]))
