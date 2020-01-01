@@ -8,42 +8,50 @@ using namespace std;
 typedef char DATATYPE;
 
 
-void Prim(int** MGraph, int vNum) {
-    int* lowcost = new int[vNum];
-    int* mst = new int[vNum];
 
-    //初始化lowcost与mst数组
-    for (int i = 0; i < vNum; i++) {
-        lowcost[i] = MGraph[0][i];
-        mst[i] = 0;
-    }
 
-    //寻找最小生成树
-    int min;
-    int minid;
-    int totalWeight = 0;
-    for(int i = 0; i < vNum - 1; i++) {
-        //查找与顶点集S连接的代价最小的边
-        min = INF;//INF
-        minid = -1;
-        for (int j = 1; j < vNum; j++) {
-            if (lowcost[j] != 0 && lowcost[j] < min) {
-                min = lowcost[j];
-                minid = j;
+
+    void prim(int ** matrix,int N)
+{
+    bool flag[N]; //标记某个点是否当前生成树集合中
+    int i,j;
+    //初始化集合
+    for(i = 0; i < N; ++i) flag[i] = false;
+
+    flag[0] = true;
+    int count = 1;
+    Graph G2(N);
+    while(count++ < N)
+    {
+        int min = 100000;
+        int e1 = -1, e2 = -1;
+        for(i = 0; i < N; ++i)
+        {
+            if(flag[i])
+            {
+                for(j = 0; j < N; ++j)
+                {
+                    if(!flag[j])
+                    {
+                        if((matrix[i][j] < min)&&(matrix[i][j]!=0))
+                        {
+                            min = matrix[i][j];
+                            e1 = i;
+                            e2 = j;
+                        }
+                    }
+                }
             }
         }
-        //将找到的顶点加入到顶点集S中（此处为输出），并将代价设为0
-        //cout << vData[mst[minid]] << "-" << vData[minid] << " = " << min << endl;
-        totalWeight += min;
-        lowcost[minid] = 0;
-        //更新lowcost与mst
-        for (int j = 1; j < vNum; j++) {
-            if (MGraph[minid][j] < lowcost[j]) {
-                lowcost[j] = MGraph[minid][j];
-                mst[j] = minid;
-            }
-        }
+        cout << e1 + 1 << "-" << e2 + 1<<" "<< matrix[e1][e2] << endl;
+        G2.add_edges_int(e1+1,e2+1,matrix[e1][e2]);
+        G2.add_edges_int(e2+1,e1+1,matrix[e1][e2]);
+        flag[e2] = true;
     }
-
-    cout << "Total Weight: " << totalWeight << endl;
+    G2.create_Matrix_fr_edges();
+    G2.print_matrix();
 }
+
+
+
+

@@ -182,7 +182,7 @@ Graph(int v):listadj(v){
         cout<<endl;
         for(int i=0;i<number_of_vertex();i++){
             for(int j=0;j<number_of_vertex();j++){
-                cout<<Matrix[i][j]<<" ";
+                cout<<Matrix[i][j]<<"   ";
             }
             std::cout<<std::endl;
         }

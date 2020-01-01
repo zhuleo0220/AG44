@@ -1,3 +1,5 @@
+#ifndef Part4_cpp
+#define Part4_cpp
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,6 +9,7 @@
 #include <math.h>
 #include <cmath>
 #include <strstream>
+#include <stack>
 #include"Vertices.h"
 #include"Edges.h"
 #include"Graph.h"
@@ -16,6 +19,8 @@
 #include"topologicalSort.cpp"
 #include"kruskal.cpp"
 #include"prim.cpp"
+#include"warshall.cpp"
+//#include "SCC.cpp"
 
 using namespace std;
 
@@ -323,6 +328,30 @@ int * decoderFileTable(int tailleS,int standardGraph[],Graph* G)
     return tableOfVertices;
 }
 
+int * decoderFileTable2(int tailleS,int standardGraph[],Graph* G)//for the getTranspose
+{
+    int tailleV = sqrt(tailleS);//size of tableOfVertices, also number of Vertices in standardGraph
+    cout<<tailleS<<endl;
+    int *tableOfVertices = new int[tailleV];
+    for(int i=1;i<=tailleV;++i)//creates the table of vertices and name them
+    {
+        tableOfVertices[i-1]=i;//the first vertice is named '1', not '0'
+    }
+    for(int j=0;j<tailleS;++j)
+    {
+        if(standardGraph[j]!=0)
+        {
+            int src,dest,cost;
+            src = j/tailleV + 1;//name/number of the source Vertice
+            dest = j%tailleV + 1;//name/number of the destination Vertice
+            cost = standardGraph[j];//cost of the edge between the two Vertices
+            (*G).add_edges_int(j%tailleV + 1 ,j/tailleV + 1, standardGraph[j]);
+            
+        }
+    }
+    return tableOfVertices;
+}
+
 
 //Writing part
 //For each, you need to give standardGraph
@@ -380,8 +409,71 @@ void write_list(int standardGraph[], int taille, char directed)
         writeFlux << endl;
     }
 }
+Graph * getTranspose(){
+    ifstream flux("test.txt");
+    if(!flux)
+    {
+        cout << "error : opening of file test.txt";                     ///This part should be written in the main for the file to be used at any time.
+        exit(400);
+    }
 
 
+   int *standardGraph=read_file(flux);
+
+    
+    Graph *G=new Graph(read_vertice(flux));
+    int *TableOfVertices=decoderFileTable2(read_vertice(flux)*read_vertice(flux),standardGraph,G);
+    G->create_Matrix_fr_edges();
+    G->print_matrix();
+    return G;
+}
+
+
+
+//SCC
+void fillOrder(int id, Graph &G, stack<int> &Stack)
+{
+    G.visite_vertice(id);
+    for(int i=1;i<=G.get_Vertices()[id-1].number();++i)
+    {
+        if(!G.visited(G.get_Vertices()[id-1].neighbours()[i]))
+        {
+            fillOrder(G.get_Vertices()[id-1].neighbours()[i], G, Stack);
+        }
+    }
+    Stack.push(id);
+}
+
+void printSCC(Graph &G)
+{
+    int v;
+    stack<int> Stack;
+    G.setunvisited();
+    
+    for(int id=0;id<G.number_of_vertex();++id)
+    {
+        if(!G.visited(id))
+        {
+            //fillOrder(id,G,Stack);
+        }
+    }/*
+    Graph *Gr =getTranspose(); //getTranspose may take G as an argument
+    G.setunvisited();
+    Gr->setunvisited();//Not sure if both need to be reset ...
+    while(!Stack.empty())
+    {
+        v=Stack.top();
+        Stack.pop();
+        if(!Gr->visited(v))
+        {
+            DFS_sort(*Gr,v);
+            cout << endl;
+        }
+    }
+    */
+}
+
+//fin du SCC
 int main()
 {
     //-----------------------------------------------------------------------------
@@ -405,25 +497,18 @@ int main()
     
     //G.print_edge();
     //G.print_list();
+    //G.sort_edges();
+    //cout<<G.get_edges()[6];
     
     G.print_matrix();
     //G.print_ver();
-    
+    //Graph * G2=getTranspose();
     
     
     //dijkstra
-    /*
-    int nodenum=read_vertice(flux);
-    int start=0;
-    int * dist=new int(nodenum);
-    int * path=new int(nodenum);
+    //Dijkstra(G.get_matrix(),read_vertice(flux));
     
-    Dijkstra(G.get_matrix(),start,nodenum,dist,path);
-    cout<<endl;
-    for(int i=0;i<nodenum;i++){
-        cout<<dist[i]<<" ";
-    }
-    */
+    
 
    //DFS
   // DFS(G);
@@ -436,11 +521,22 @@ int main()
    //topologicalSort(G);
    //cout<<G.related();
 
-
+  //Kruskal  
   //kruskal(G);
 
   //Prim
-  Prim(G.get_matrix(),G.number_of_vertex());
+  prim(G.get_matrix(),G.number_of_vertex());
+
+
+  //Highly related components
+  //printSCC(G);
+
+
+
+  //warshall
+  //floydWarshall(G.get_matrix(),read_vertice(flux));
+  
+
 
 
 
@@ -456,3 +552,10 @@ int main()
     write_list(standardGraph,read_vertice(flux)*read_vertice(flux),'n');
     return 0;
 }
+
+
+#endif
+
+
+
+

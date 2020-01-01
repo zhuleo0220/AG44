@@ -1,7 +1,12 @@
 // We already have the DFS_sort
 // We have a function getTranspose that gives the transpose of a graph G
 // getTranspose would just be another constructor of Graph that switches the src/dest values
-
+#ifndef SCC_cpp
+#define SCC_cpp
+#include <stack>
+#include "Graph.h"
+#include "Part4.cpp"
+using namespace std;
 void fillOrder(int id, Graph &G, stack<int> &Stack)
 {
     G.visite_vertice(id);
@@ -27,17 +32,20 @@ void printSCC(Graph &G)
             fillOrder(id,G,Stack);
         }
     }
-    Graph Gr = getTranspose(); ///getTranspose may take G as an argument
+    Graph *Gr =getTranspose(); //getTranspose may take G as an argument
     G.setunvisited();
-    Gr.setunvisited();//Not sure if both need to be reset ...
+    Gr->setunvisited();//Not sure if both need to be reset ...
     while(!Stack.empty())
     {
         v=Stack.top();
         Stack.pop();
-        if(!Gr.visited(v))
+        if(!Gr->visited(v))
         {
-            Gr.DFS_sort(Gr,v);
+            DFS_sort(*Gr,v);
             cout << endl;
         }
     }
 }
+
+
+#endif
