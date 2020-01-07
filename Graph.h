@@ -14,6 +14,7 @@ class Graph{
     Edges* listEdge;
     int ** Matrix;
     vector<vector<pair<int,int>>> listadj;
+    vector<vector<int>> Matrix_vector;
     int numberofv,numberofe;
 public:
     friend bool Dijkstra(int src, int dest);
@@ -40,7 +41,7 @@ public:
     //it will automatically create the liste of edges 
 
 
-Graph(int v):listadj(v){
+Graph(int v):listadj(v),Matrix_vector(v,vector<int>(v)){
     numberofv=v;
     numberofe=0;
     listVertex=new Vertices[20];
@@ -60,6 +61,7 @@ Graph(int v):listadj(v){
     Edges * get_edges(){return listEdge;}
     Vertices * get_Vertices(){return listVertex;}
     int* * get_matrix(){return Matrix;}
+    vector<vector<int>> get_matrixVec(){return Matrix_vector;}
     void change_num_vertex(int nu){numberofv=nu;}
     void setunvisited(){
         for(int i=0;i<=numberofv;i++)
@@ -161,6 +163,14 @@ Graph(int v):listadj(v){
         for(int i=0;i<number_of_edges();i++)
             {
                 Matrix[listEdge[i].get_src().iden()-1][listEdge[i].get_dest().iden()-1]=listEdge[i].get_cost();
+             //cout<<listEdge[i].get_cost();
+
+            }
+    }
+    void create_MatrixVec_fr_edges(){
+         for(int i=0;i<number_of_edges();i++)
+            {
+                Matrix_vector[listEdge[i].get_src().iden()-1][listEdge[i].get_dest().iden()-1]=listEdge[i].get_cost();
              //cout<<listEdge[i].get_cost();
 
             }

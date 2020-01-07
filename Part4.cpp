@@ -20,7 +20,7 @@
 #include"kruskal.cpp"
 #include"prim.cpp"
 #include"warshall.cpp"
-//#include "SCC.cpp"
+#include "SCC2.cpp"
 
 using namespace std;
 
@@ -492,8 +492,8 @@ int main()
     int *TableOfVertices=decoderFileTable(read_vertice(flux)*read_vertice(flux),standardGraph,&G);
     cout<<endl;
    
-    //G.create_List_fr_edges();
     G.create_Matrix_fr_edges();
+    G.create_MatrixVec_fr_edges();
     
     //G.print_edge();
     //G.print_list();
@@ -505,13 +505,12 @@ int main()
     //Graph * G2=getTranspose();
     
     
-    //dijkstra
-    //Dijkstra(G.get_matrix(),read_vertice(flux));
+   
     
     
 
    //DFS
-  // DFS(G);
+   //DFS(G,2);
 
    //BFS
    //BFS(G,1);
@@ -519,22 +518,25 @@ int main()
 
    // topologicalSort
    //topologicalSort(G);
-   //cout<<G.related();
 
   //Kruskal  
   //kruskal(G);
 
   //Prim
-  prim(G.get_matrix(),G.number_of_vertex());
+  //prim(G.get_matrix(),G.number_of_vertex());
 
 
   //Highly related components
   //printSCC(G);
+  Scc2(G.get_matrixVec(),G.number_of_vertex());
 
 
 
   //warshall
   //floydWarshall(G.get_matrix(),read_vertice(flux));
+
+   //dijkstra
+    //Dijkstra(G.get_matrix(),read_vertice(flux));
   
 
 

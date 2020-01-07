@@ -14,8 +14,8 @@ void DFS_sort(Graph &G, int id)//Reminder : the vertex number x has 'id=x'
         }
     }
 }
-void DFS(Graph &G)
+void DFS(Graph &G,int n)
 {
     G.setunvisited();
-    DFS_sort(G, 1); //1 is the id of the starting vertex
+    DFS_sort(G, n); //1 is the id of the starting vertex
 }
